@@ -1,10 +1,11 @@
 from django.http import JsonResponse
 from .models import Genre
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 import json
 
 @csrf_exempt
-def genre_view(request):
+def genre_create_list_view(request):
 
     if request.method == 'GET':
         genres = Genre.objects.all()
@@ -28,4 +29,19 @@ def genre_view(request):
          #Decodifica o corpo da requisição
 
         #Aqui você pode adicionar lógica para criar um novo gênero
-        
+    
+
+@csrf_exempt
+def genre_detail_view(request, pk):
+
+    genre = get_object_or_404(Genre, pk=pk)
+    if request.method == 'GET': # Retorna os detalhes de um gênero específico
+        data = {"id": genre.id, "name": genre.name} # Dados do gênero
+        return JsonResponse(data) # Retorna os dados em formato JSON
+    
+    elif request.method == 'PUT':   
+        data = json.loads(request.body.decode('utf-8')) # Decodifica o corpo da requisição
+        genre.name = data['name'] # Atualiza o nome do gênero
+        genre.save() # Salva as alterações no banco de dados
+        return JsonResponse({"id": genre.id, "name": genre.name}, # Retorna os dados atualizados
+                            status=200)
