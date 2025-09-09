@@ -44,4 +44,9 @@ def genre_detail_view(request, pk):
         genre.name = data['name'] # Atualiza o nome do gênero
         genre.save() # Salva as alterações no banco de dados
         return JsonResponse({"id": genre.id, "name": genre.name}, # Retorna os dados atualizados
-                            status=200)
+                            status=203) # Status 203 indica que a requisição foi bem-sucedida e o conteúdo foi modificado
+
+    elif request.method == 'DELETE':
+        genre.delete() # Deleta o gênero do banco de dados
+        return JsonResponse({'message': 'Gênero excluido com êxito.'}, status=204) # Retorna uma resposta vazia com status 204 (No Content)
+        #Status 204 indica que a requisição foi bem-sucedida, mas não há conteúdo para retornar.
