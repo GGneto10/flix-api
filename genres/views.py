@@ -3,10 +3,16 @@ from .models import Genre
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 import json
+from rest_framework import generics
+from .serializers import GenreSerializer
 
+
+class GenreListCreateView(generics.ListCreateAPIView): 
+    queryset = Genre.objects.all() # Define o conjunto de dados para a visualização
+    serializer_class = GenreSerializer # Define o serializador a ser usado
+'''
 @csrf_exempt
 def genre_create_list_view(request):
-
     if request.method == 'GET':
         genres = Genre.objects.all()
         data = [{"id": genre.id, "name": genre.name} for genre in genres]
@@ -30,7 +36,7 @@ def genre_create_list_view(request):
 
         #Aqui você pode adicionar lógica para criar um novo gênero
     
-
+'''
 @csrf_exempt
 def genre_detail_view(request, pk):
 
