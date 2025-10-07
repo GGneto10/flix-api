@@ -2,7 +2,7 @@ from rest_framework import generics
 from .models import Review
 from .serializers import ReviewSerializer
 
-class ReviewCreateListView(generics.ListCreateAPIView):
+class ReviewListCreateView(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer # Define your serializer class here
 
