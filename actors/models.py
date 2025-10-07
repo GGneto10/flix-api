@@ -1,6 +1,5 @@
 from django.db import models
 
-
 NATIONALITY_CHOICES = [
     ('US', 'United States'),
     ('UK', 'United Kingdom'),
