@@ -9,8 +9,21 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
 
-    def get_rate(self, obj):
-        return 5
+    def get_rate(self, obj):#o obj representa a instância do Movie atual
+        reviews = obj.reviews.all()  # Acessa todas as avaliações relacionadas ao filme
+        
+        if reviews:
+            sum_revierws = 0
+
+            for review in reviews:
+                sum_revierws += review.stars
+            
+            reviews_count = reviews.count()
+
+            return round(sum_revierws / reviews_count, 2)  # Retorna a média das avaliações
+            
+
+        return None # Retorna None se não houver avaliações
 
     def validate_release_date(self, value):
         if value.year < 1990:

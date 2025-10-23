@@ -12,6 +12,6 @@ class Review(models.Model):
         ]   
     ) 
     comment = models.TextField(blank=True, null=True)
-
+#A Reviews está vinculada a um Movie específico por meio de uma ForeignKey.
     def __str__(self):
         return f'Review for {self.movie.title} - {self.stars} stars'
