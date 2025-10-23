@@ -2,9 +2,15 @@ from rest_framework import serializers
 from .models import Movie
 
 class MovieSerializer(serializers.ModelSerializer):
+
+    rate = serializers.SerializerMethodField(read_only=True) # -> Campo calculado dinamicamente
+
     class Meta:
         model = Movie
         fields = '__all__'
+
+    def get_rate(self, obj):
+        return 5
 
     def validate_release_date(self, value):
         if value.year < 1990:
