@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Movie
-
+from django.db.models import Avg
 class MovieSerializer(serializers.ModelSerializer):
 
     rate = serializers.SerializerMethodField(read_only=True) # -> Campo calculado dinamicamente
@@ -8,9 +8,16 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
-
+    
     def get_rate(self, obj):#o obj representa a instância do Movie atual
-        reviews = obj.reviews.all()  # Acessa todas as avaliações relacionadas ao filme
+        rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
+        #NA aula 147 explica esse código.
+        if rate:
+            return round(rate, 2)
+        
+        return None
+    # Outra forma de calcular a média das avaliações sem usar aggregate
+        '''reviews = obj.reviews.all()  # Acessa todas as avaliações relacionadas ao filme
         
         if reviews:
             sum_revierws = 0
@@ -24,6 +31,9 @@ class MovieSerializer(serializers.ModelSerializer):
             
 
         return None # Retorna None se não houver avaliações
+        '''
+
+   
 
     def validate_release_date(self, value):
         if value.year < 1990:
