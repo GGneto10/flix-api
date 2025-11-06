@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -137,3 +137,8 @@ REST_FRAMEWORK = {
     ),
 }
 # Simple JWT settings
+
+SIMPLE_JWT = {
+	"ACCESS_TOKEN_LIFETIME": timedelta(minute=5), #Tempo de vida do token de acesso
+	"REFRESH_TOKEN_LIFETIME": timedelta(days=1), #Tempo de vida do token de atualização
+} #Posso configurar o tempo que eu quiser com isso.
