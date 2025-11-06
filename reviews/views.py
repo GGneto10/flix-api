@@ -3,6 +3,7 @@ from .models import Review
 from .serializers import ReviewSerializer
 from rest_framework.permissions import IsAuthenticated
 
+
 class ReviewListCreateView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Review.objects.all()
