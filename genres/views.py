@@ -12,3 +12,5 @@ class GenreRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GenrePermissionClass,)
     queryset = Genre.objects.all() # Define o conjunto de dados para a visualização
     serializer_class = GenreSerializer # Define o serializador a ser usado
+
+    #As GenrePermissionClass já cuidam das permissões para GET, PUT, DELETE, então não é necessário sobrescrever os métodos aqui.
