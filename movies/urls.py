@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MovieListCreateView, MovieRetrieveUpdateDestroyView    
+from .views import MovieListCreateView, MovieRetrieveUpdateDestroyView, MovieStatsView  
 
 urlpatterns = [
     path('movies/', MovieListCreateView.as_view(), name='movies-create-list'),
